@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 class Cancion:
     def __init__(self,titulo,categoria,idioma):
@@ -21,5 +21,14 @@ def index():
 @app.route('/nuevoregistro')
 def nuevoregistro():
     return render_template('nuevoRegistro.html',titulo='Nueva Cancion')
+
+@app.route('/crear', methods=['POST',])
+def crear():
+    titulo = request.form['titulo']
+    categoria = request.form['categoria']
+    idioma = request.form['idioma']
+    cancion = Cancion(titulo, categoria, idioma)
+    lista.append(cancion)
+    return render_template('lista6.html', titulo='Canciones', musicas=lista)
 
 app.run(host="0.0.0.0", port=5000)
